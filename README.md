@@ -5,7 +5,8 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/swatty007/faker-image-generator.svg?style=flat-square)](https://packagist.org/packages/swatty007/faker-image-generator)
 [![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Build Status](https://www.travis-ci.com/swatty007/faker-image-generator.svg?branch=main)](https://www.travis-ci.com/swatty007/faker-image-generator)
-[![[![Quality Score](https://img.shields.io/scrutinizer/g/swatty007/faker-image-generator.svg?style=flat-square)](https://scrutinizer-ci.com/g/swatty007/faker-image-generator)
+[![StyleCI](https://github.styleci.io/repos/341899630/shield?branch=master)](https://github.styleci.io/repos/341899630?branch=master)
+[![Quality Score](https://img.shields.io/scrutinizer/g/swatty007/faker-image-generator.svg?style=flat-square)](https://scrutinizer-ci.com/g/swatty007/faker-image-generator)
 [![Total Downloads](https://img.shields.io/packagist/dt/swatty007/faker-image-generator.svg?style=flat-square)](https://packagist.org/packages/swatty007/faker-image-generator)
 
 Generator of placeholder-type images using **GD** for **[fzaninotto/Faker](https://github.com/fzaninotto/Faker)**

@@ -1,33 +1,64 @@
 <?php
-namespace bheller\ImagesGenerator;
+namespace Swatty007\FakerImageGenerator\Tests;
 
-class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
+use Faker\Factory;
+use Orchestra\Testbench\TestCase;
+use Swatty007\FakerImageGenerator\FakerImageGeneratorServiceProvider;
+use Swatty007\FakerImageGenerator\Providers\FakerImageGenerationProvider;
+
+class ImagesGeneratorProviderTest extends TestCase
 {
-    public function setUp()
+    private \Faker\Generator $faker;
+    private array $files;
+
+    protected function getPackageProviders($app)
     {
-        $this->faker = \Faker\Factory::create();
-        $this->faker->addProvider(new ImagesGeneratorProvider($this->faker));
-        
-        $this->files = null;
+        return [FakerImageGeneratorServiceProvider::class];
     }
-    
+
     /**
-     * Clean up any temporary images
+     * Register our custom faker provider
+     *
      */
-    public function tearDown()
+    public function setUp() : void
+    {
+        parent::setUp();
+
+        $this->faker = Factory::create();
+
+        $imageGenerator = new FakerImageGenerationProvider($this->faker);
+        $imageGenerator->fontFace = __dir__ . '/../resources/assets/fonts/Roboto-Regular.ttf';
+
+        $this->faker->addProvider($imageGenerator);
+
+        $this->files = [];
+    }
+
+    /**
+     * Clean up any temporary images again
+     *
+     */
+    public function tearDown() : void
     {
         if ($this->files !== null) {
             foreach ($this->files as $f) {
                 @unlink($f);
             }
         }
+
+        parent::tearDown();
     }
-    
+
+    /**
+     * Helper Function to validate if our images are valid
+     *
+     * @param $test
+     */
     private function _testImage($test)
     {
         $this->assertNotNull(@exif_imagetype($test));
     }
-    
+
     /**
      * Test creating an image with the default setup
      *
@@ -38,7 +69,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator();
         $this->_testImage($test);
     }
-    
+
     /**
      * Test using a invalid directory, /dev/null
      *
@@ -52,7 +83,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($e->getMessage(), 'Cannot write to directory "/dev/null"');
         }
     }
-    
+
     /**
      * Test using text using a colour without a hex
      *
@@ -63,7 +94,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'png', true, null, '#0000ff');
         $this->_testImage($test);
     }
-    
+
     /**
      * Test using text using a colour with a hex
      *
@@ -74,7 +105,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'png', true, null, '0000ff');
         $this->_testImage($test);
     }
-    
+
     /**
      * Test using a background colour with a hex
      *
@@ -85,7 +116,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'png', true, 'ImagesGenerator', null, '#0000ff');
         $this->_testImage($test);
     }
-    
+
     /**
      * Test using a background colour without a hex
      *
@@ -96,7 +127,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'png', true, 'ImagesGenerator', null, '0000ff');
         $this->_testImage($test);
     }
-    
+
     /**
      * Test showing text over the image
      *
@@ -107,7 +138,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'png', true, 'ImagesGenerator');
         $this->_testImage($test);
     }
-    
+
     /**
      * Test using the width and height as the text
      *
@@ -118,7 +149,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'png', true, true);
         $this->_testImage($test);
     }
-    
+
     /**
      * Test creating a image with an extention of .jpg
      *
@@ -129,9 +160,9 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'jpg');
         $this->_testImage($test);
     }
-    
+
     /**
-     * Test creating a image with an extention of .jpeg
+     * Test creating a image with an extension of .jpeg
      *
      * @return void
      */
@@ -140,7 +171,7 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'jpeg');
         $this->_testImage($test);
     }
-    
+
     /**
      * Test creating a image with an extention of .png
      *
@@ -149,6 +180,28 @@ class ImagesGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testPNG()
     {
         $this->files[] = $test = $this->faker->imageGenerator(null, 640, 480, 'png');
+        $this->_testImage($test);
+    }
+
+    /**
+     * Test if our readmes default image example works
+     *
+     * @return void
+     */
+    public function test_readme_default_image()
+    {
+        $this->files[] = $test = $this->faker->imageGenerator();
+        $this->_testImage($test);
+    }
+
+    /**
+     * Test if our readmes custom image example works
+     *
+     * @return void
+     */
+    public function test_readme_custom_image()
+    {
+        $this->files[] = $test = $this->faker->imageGenerator('docs', 640, 480, 'png', true, 'Faker', '#0018ff', '#ffd800');
         $this->_testImage($test);
     }
 }

@@ -1,28 +1,70 @@
 {
-    "name": "bheller/images-generator",
-    "description": "Generator of placeholder images for Faker",
-    "homepage": "https://github.com/bruceheller/images-generator",
-    "version": "1.0.1",
-    "keywords": ["images-generator", "imagesgenerator", "faker", "fixtures", "data"],
+    "name": "swatty007/faker-image-generator",
+    "description": "Placeholder Image Generator for FakerPHP",
+    "homepage": "https://github.com/swatty007/faker-image-generator",
+    "version": "1.0.0",
+    "keywords": [
+        "swatty007",
+        "images-generator",
+        "imagesgenerator",
+        "faker",
+        "fixtures",
+        "data"
+    ],
     "license": "MIT",
     "authors": [
         {
+            "name": "Martin Niehoff",
+            "email": "info@martin-niehoff.de",
+            "role": "Developer",
+            "homepage": "https://martin-niehoff.de"
+        },
+        {
             "name": "Bruce Heller",
             "email": "bheller@bheller.com",
+            "role": "Original Developer",
             "homepage": "http://www.bheller.com"
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "fzaninotto/faker": "~1.4"
+        "php": "^7.4|^8.0",
+        "fakerphp/faker": "~1.13",
+        "ext-gd": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "squizlabs/php_codesniffer": "2.*"
+        "orchestra/testbench": "^5.13|^6.7",
+        "phpunit/phpunit": "^9.3",
+        "phpmd/phpmd": "@stable",
+        "phpmetrics/phpmetrics": "^2.7",
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "ext-exif": "*"
     },
     "autoload": {
         "psr-4": {
-            "bheller\\ImagesGenerator\\": "src"    
+            "Swatty007\\FakerImageGenerator\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Swatty007\\FakerImageGenerator\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-f": "vendor/bin/phpunit --filter",
+        "test-coverage": "vendor/bin/phpunit --coverage-html ./build/coverage",
+        "format": "vendor/bin/php-cs-fixer fix --config=.php_cs.dist",
+        "smell": "vendor/bin/phpmd src/ html cleancode,naming --reportfile ./build/phpmd.html",
+        "metrics": "vendor/bin/phpmetrics --report-html=./build/metrics src/"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Swatty007\\FakerImageGenerator\\FakerImageGeneratorServiceProvider"
+            ]
         }
     }
 }

@@ -2,6 +2,9 @@
 
 All notable changes to `faker-image-generator` will be documented in this file
 
+## 3.0.0 - 2023-09-26
+Added Support for Laravel 10
+
 ## 2.0.0 - 2021-02-24
 Initial release of our forked version
 

@@ -14,5 +14,10 @@ jobs:
                 run: composer update
 
             -   name: Verify Coding Standards
-                run: vendor/bin/php-cs-fixer fix --diff --dry-run
+                run: composer run format
+
+            -   name: Commit changes
+                uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    commit_message: Apply php-cs-fixer changes
 

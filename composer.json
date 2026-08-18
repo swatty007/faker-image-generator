@@ -32,12 +32,12 @@
         "ext-gd": "*"
     },
     "require-dev": {
+        "ext-exif": "*",
         "friendsofphp/php-cs-fixer": "^3",
-        "orchestra/testbench": "^9.0.0",
+        "orchestra/testbench": "^10.0",
         "phpmd/phpmd": "@stable",
         "phpmetrics/phpmetrics": "^2.8",
-        "phpunit/phpunit": "^10",
-        "ext-exif": "*"
+        "phpunit/phpunit": "^11"
     },
     "autoload": {
         "psr-4": {

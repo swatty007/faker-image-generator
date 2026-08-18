@@ -2,6 +2,9 @@
 
 All notable changes to `faker-image-generator` will be documented in this file
 
+## 4.0.0 - 2026-08-18 | Laravel 11 Support
+- Updated dependencies to support Laravel 11
+
 ## 3.0.0 - 2023-09-26
 Added Support for Laravel 10
 

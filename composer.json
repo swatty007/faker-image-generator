@@ -2,7 +2,7 @@
     "name": "swatty007/faker-image-generator",
     "description": "Placeholder Image Generator for FakerPHP",
     "homepage": "https://github.com/swatty007/faker-image-generator",
-    "version": "3.0.0",
+    "version": "5.0.0",
     "keywords": [
         "swatty007",
         "images-generator",
